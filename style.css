@@ -1,0 +1,64 @@
+/* Estilos optimizados para Galaxia */
+:root{
+  --bg1:#0b0610;
+  --bg2:#14071a;
+  --accent:#b07bff;
+  --glass: rgba(255,255,255,0.05);
+  --text: #fff;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: radial-gradient(1200px 700px at 15% 15%, rgba(130,40,200,0.06), transparent 8%), linear-gradient(180deg,var(--bg1), var(--bg2)); color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+
+#scene{position:fixed;inset:0;overflow:hidden;display:block}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+
+/* Planet canvas sits above background */
+#planet-canvas{z-index:2;pointer-events:none}
+
+/* Phrases floating with optimized GPU transforms */
+#phrases{position:absolute;inset:0;z-index:4;pointer-events:none}
+.phrase{
+  position:absolute;
+  transform:translate3d(-50%,-50%,0);
+  padding:8px 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border-radius:999px;
+  backdrop-filter: blur(6px) saturate(120%);
+  box-shadow: 0 8px 22px rgba(6,3,12,0.6), 0 0 24px rgba(176,123,255,0.06) inset;
+  font-weight:700;
+  font-size:14px;
+  white-space:nowrap;
+  color: #fff;
+  opacity:0;
+  will-change:transform,opacity,filter;
+  transition: opacity 900ms cubic-bezier(.2,.9,.3,1), filter 900ms ease;
+  filter: drop-shadow(0 6px 18px rgba(160,100,255,0.12));
+}
+
+/* Appear animation */
+.phrase.show{opacity:1;}
+
+/* Slight glow for important phrase */
+.phrase.highlight{
+  padding:10px 14px;
+  font-size:15px;
+  letter-spacing:0.2px;
+  box-shadow: 0 10px 40px rgba(176,123,255,0.16), 0 0 50px rgba(176,123,255,0.08);
+}
+
+/* Play button */
+#play-toggle{
+  position:fixed;right:24px;bottom:24px;z-index:6;
+  background:linear-gradient(180deg,var(--accent), #7a42ff);
+  color:white;border:0;padding:12px 14px;border-radius:12px;font-weight:800;
+  box-shadow:0 12px 36px rgba(8,5,18,0.65);cursor:pointer;
+  backdrop-filter: blur(6px);
+}
+#play-toggle:active{transform:scale(0.98)}
+
+/* Responsive tweaks */
+@media (max-width:720px){
+  .phrase{font-size:12px;padding:6px 10px}
+  #play-toggle{right:14px;bottom:14px;padding:10px 12px}
+}
